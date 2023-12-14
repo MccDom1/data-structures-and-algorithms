@@ -18,21 +18,19 @@ const stuff = {
 CHALLENGE 1
 
 In the addPeople function, use spread and destructuring assignments to:
-  - Create a new array called newPeople as a copy of the people array
+  - Create a new as a copy of the people array
   - Add a person named 'Odie' added to the beginning of the array
   - Add another one named 'Garfield' added to the end of the array
+  - Return the new array
 
 Prove that the original people array is unchanged
-
-Using spread and destructuring assignment, create a new object called newStuff, which is a copy of the stuff object, with a new car added to the end of the cars array within it
-Create a state object with keys of people and stuff that contain the people and stuff data.
-Do this using object destructuring assignment
-Using spread and destructuring assignments, create a new object called newSate, repeating the newPeople and newStuff steps above but directly within the people and stuff nodes of the state object (don't just spread in newPeople and newStuff)
-Ensure that the original people, stuff, and state are unchanged.
 
 ------------------------------------------------------------------------------------------------ */
 
 const addPeople = (arr) => {
+  const newArr = [...arr, 'Odie', 'Garfield'];
+  return newArr;
+
   // Solution code here...
 };
 
@@ -43,15 +41,19 @@ In the setSate function, use spread and destructuring assignments to:
   - Create and return a state object with 2 keys:
     people, which will contain a copy of the people array
     stuff, which will contain a copy of the stuff object
+  - Return the state object that you've created
 
 Ensure that the original people array and stuff objects are unchanged
 
-Using spread and destructuring assignments, create a new object called newSate, repeating the newPeople and newStuff steps above but directly within the people and stuff nodes of the state object (don't just spread in newPeople and newStuff)
-Prove that the original people, stuff, and state are unchanged.
-
 ------------------------------------------------------------------------------------------------ */
 
-const setState = (arr) => {
+const setState = (arr, obj) => {
+  const newState = {
+    people: [...arr],
+    stuff: {...obj}
+  };
+
+  return newState;
   // Solution code here...
 };
 
@@ -66,12 +68,21 @@ In the newState function, use only spread and destructuring assignments to:
     Add a new car ("Ford") added to the list of cars
     Change the toothbrush from "frayed" to "brand new"
     Add 1 to the number of toys
+  - Return the new object that you've created
 
 Ensure that the original people array and stuff objects are unchanged
 
 ------------------------------------------------------------------------------------------------ */
 
-const newState = (arr) => {
+const newState = (arr, obj) => {
+  const newState = {
+    people: [...arr],
+    stuff: {...obj},
+    cars: ['Ford'],
+    toothbrush: 'brand new',
+    toys: obj.toys + 1
+  };
+  return newState;
   // Solution code here...
 };
 
@@ -91,7 +102,7 @@ describe('Testing challenge 1', () => {
   test('It should return a copy of the people array with 2 new values', () => {
     const orig = ['Kookla', 'Fran', 'Ollie'];
     const expected = ['Odie', 'Kookla', 'Fran', 'Ollie', 'Garfield'];
-    const copy = addPeople();
+    const copy = addPeople(orig);
     expect(copy).toStrictEqual(expected);
     expect(orig).toStrictEqual(people);
   });
@@ -108,7 +119,7 @@ describe('Testing challenge 2', () => {
       cars: ['Toyota', 'Mazda']
     }
     const expected = {people: originalPeople, stuff: originalStuff};
-    const copy = setState();
+    const copy = setState(originalPeople, originalStuff);
     expect(copy).toStrictEqual(expected);
     expect(originalPeople).toStrictEqual(people);
     expect(originalStuff).toStrictEqual(stuff);
@@ -135,7 +146,7 @@ describe('Testing challenge 3', () => {
         cars: ['Toyota', 'Mazda', 'Ford']
       }
     }
-    const copy = newState();
+    const copy = newState(originalPeople, originalStuff);
     expect(copy).toStrictEqual(expected);
     expect(originalPeople).toStrictEqual(people);
     expect(originalStuff).toStrictEqual(stuff);
